@@ -10,13 +10,13 @@ namespace upc {
   class InstrumentDumb: public upc::Instrument {
     EnvelopeADSR adsr;
     unsigned int index;
-	float A;
+    float A;
     std::vector<float> tbl;
   public:
     InstrumentDumb(const std::string &param = "");
     void command(long cmd, long note, long velocity=1); 
-    const std::vector<float> & synthesize();
-    bool is_active() const {return bActive;} 
+    const std::vector<float> & synthesize() override;
+    bool is_active() const { return bActive; } 
   };
 }
 

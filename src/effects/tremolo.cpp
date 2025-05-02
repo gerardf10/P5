@@ -21,7 +21,7 @@ Tremolo::Tremolo(const std::string &param) {
   if (!kv.to_float("fm", fm))
     fm = 10; //default value
 
-  inc_fase = 2 * M_PI * fm / SamplingRate;
+  inc_fase = 2 * 3.14159 * fm / SamplingRate;
 }
 
 void Tremolo::command(unsigned int comm) {
@@ -33,6 +33,6 @@ void Tremolo::operator()(std::vector<float> &x){
     x[i] *= ((2 - A) + A * sin(fase)) / 2;
     fase += inc_fase;
 
-    while(fase > 2 * M_PI) fase -= 2 * M_PI;
+    while(fase > 2 * 3.14159) fase -= 2 * 3.14159;
   }
 }

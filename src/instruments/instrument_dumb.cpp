@@ -25,7 +25,7 @@ InstrumentDumb::InstrumentDumb(const std::string &param)
   
   //Create a tbl with one period of a sinusoidal wave
   tbl.resize(N);
-  float phase = 0, step = 2 * M_PI /(float) N;
+  float phase = 0, step = 2 * 3.1415926 /(float) N;
   index = 0;
   for (int i=0; i < N ; ++i) {
     tbl[i] = sin(phase);
@@ -51,12 +51,12 @@ void InstrumentDumb::command(long cmd, long note, long vel) {
 
 
 const vector<float> & InstrumentDumb::synthesize() {
-  if (not adsr.active()) {
+  if (!adsr.active()) {
     x.assign(x.size(), 0);
     bActive = false;
     return x;
   }
-  else if (not bActive)
+  else if (!bActive)
     return x;
 
   for (unsigned int i=0; i<x.size(); ++i) {
