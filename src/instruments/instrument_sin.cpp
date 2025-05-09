@@ -44,19 +44,17 @@ void InstrumentSin::command(long cmd, long note, long vel) {
 // En instrument_sin.cpp
 
 const std::vector<float>& InstrumentSin::synthesize() {
-    // Si la envolvente ya ha terminado, silencio total
-    if (!adsr.active()) {
+  // If ADSR has finished, return silence and deactivate voice
+  if (!adsr.active()) {
       x.assign(x.size(), 0.0f);
       bActive = false;
       return x;
-    }
-    // Si la voz no está activa, devolvemos silencio previo
-    else if (!bActive) {
-      return x;
-    }
+  }
+  // If voice not active yet, return previous buffer (silence or release tail)
+  // but allow ADSR to process release phase
   
-    // Rellenar un buffer ciclo a ciclo con interpolación lineal
-    for (unsigned int i = 0; i < x.size(); ++i) {
+  // Fill buffer with interpolated sine samples
+  for (unsigned int i = 0; i < x.size(); ++i) {
       int idx = static_cast<int>(phaseIndex);
       float frac = phaseIndex - idx;
       int idx2 = (idx + 1) % tbl.size();
@@ -64,12 +62,13 @@ const std::vector<float>& InstrumentSin::synthesize() {
       x[i] = A * sample;
       phaseIndex += step;
       if (phaseIndex >= tbl.size())
-        phaseIndex -= tbl.size();
-    }
-  
-    // Aplica el ADSR a todo el buffer y actualiza su estado
-    adsr(x);
-  
-    return x;
+          phaseIndex -= tbl.size();
   }
+
+  // Apply ADSR envelope to entire buffer
+  adsr(x);
+
+  return x;
+}
+
   

@@ -56,57 +56,39 @@ void InstrumentFM::command(long cmd, long note, long vel) {
         adsr.end();
     }
 }
-// En instrument_fm.cpp
-
 const std::vector<float>& InstrumentFM::synthesize() {
-    // Si la envolvente ya ha terminado, silencio total
+    // 1) If the envelope is fully done, just return silence forever
+    double twoPi = 2.0 * 3.14159265358979323846;
     if (!adsr.active()) {
-      x.assign(x.size(), 0.0f);
-      bActive = false;
-      return x;
+        x.assign(x.size(), 0.0f);
+        return x;
     }
-    // Si la voz no está activa, devolvemos silencio previo
-    else if (!bActive) {
-      return x;
+
+    // 2) Always regenerate the FM voice, even during release
+
+    double stepC = twoPi * f0      / SamplingRate;
+    double stepM = twoPi * modFreq / SamplingRate;
+
+    for (size_t i = 0; i < x.size(); ++i) {
+        // modulator
+        double modS = std::sin(phaseM);
+        phaseM += stepM;
+        if (phaseM >= twoPi) phaseM -= twoPi;
+
+        // carrier with FM
+        double instP = phaseC + I * modS;
+        float carS = std::sin(instP);
+
+        // raw amplitude × velocity
+        x[i] = A * carS;
+
+        // advance base phase
+        phaseC += stepC;
+        if (phaseC >= twoPi) phaseC -= twoPi;
     }
-  
-    // Variables locales de fase y pasos
-    double localPhaseC = phaseC;
-    double localPhaseM = phaseM;
-    double stepC = f0 * tbl.size() / SamplingRate;
-    double stepM = modFreq * tbl.size() / SamplingRate;
-  
-    // Síntesis FM por muestra
-    for (unsigned int i = 0; i < x.size(); ++i) {
-      // Interpolación del modulador
-      int m1 = static_cast<int>(localPhaseM);
-      float mf = localPhaseM - m1;
-      int m2 = (m1 + 1) % tbl.size();
-      float modSample = (1.0f - mf) * tbl[m1] + mf * tbl[m2];
-  
-      // Portadora modulada
-      double phaseWithMod = localPhaseC + I * modSample;
-      int c1 = static_cast<int>(phaseWithMod) % tbl.size();
-      float cf = phaseWithMod - static_cast<int>(phaseWithMod);
-      int c2 = (c1 + 1) % tbl.size();
-      float carSample = (1.0f - cf) * tbl[c1] + cf * tbl[c2];
-  
-      x[i] = static_cast<float>(A * carSample);
-  
-      // Avanzar fases
-      localPhaseC += stepC;
-      if (localPhaseC >= tbl.size()) localPhaseC -= tbl.size();
-      localPhaseM += stepM;
-      if (localPhaseM >= tbl.size()) localPhaseM -= tbl.size();
-    }
-  
-    // Guardar fases para el siguiente bloque
-    phaseC = localPhaseC;
-    phaseM = localPhaseM;
-  
-    // Aplica el ADSR a todo el buffer y actualiza su estado
+
+    // 3) Apply the ADSR to *this* freshly‑generated buffer
     adsr(x);
-  
+
     return x;
-  }
-  
+}
