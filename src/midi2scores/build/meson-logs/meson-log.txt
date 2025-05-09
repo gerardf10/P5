@@ -1,0 +1,11 @@
+Build started at 2025-05-09T09:18:59.907199
+Main binary: /usr/bin/python3
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 0.53.2
+Source dir: /mnt/c/Users/guill/OneDrive/Documents/PAV/p5/src/midi2scores
+Build dir: /mnt/c/Users/guill/OneDrive/Documents/PAV/p5/src/midi2scores/build
+Build type: native build
+
+ERROR: First statement must be a call to project

@@ -4,7 +4,7 @@ project(
     version: 'v2.0'
 )
 
-inc = include_directories(['src/include', 'src/synth', 'src/instruments', 'src/pav/docopt_cpp'])
+inc = include_directories(['src/include', 'src/synth', 'src/instruments', 'src/midi2scores', 'src/pav/docopt_cpp'])
 
 # Librería PAV
 subdir('src/pav')

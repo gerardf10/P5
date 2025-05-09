@@ -16,6 +16,7 @@ InstrumentSampler::InstrumentSampler(const std::string &params)
     string filename = params.substr(pos + 5);
     // Load WAV file into buffer (pseudo-code; actual error checking omitted)
     SF_INFO sfinfo;
+
     SNDFILE *snd = sf_open(filename.c_str(), SFM_READ, &sfinfo);
     if (!snd) {
         cerr << "InstrumentSampler: could not open " << filename << "\n";
