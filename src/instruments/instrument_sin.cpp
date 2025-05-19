@@ -30,6 +30,7 @@ void InstrumentSin::command(long cmd, long note, long vel) {
         // Compute step based on MIDI note
         double freq = pow(2.0, (note - 69) / 12.0) * 440.0;
         step = freq * tbl.size() / SamplingRate;
+
         A = vel / 127.0;
     }
     else if (cmd == 8) { // Note Off

@@ -43,9 +43,9 @@ void InstrumentFM::command(long cmd, long note, long vel) {
         f0 = pow(2.0, (note - 69) / 12.0) * 440.0;
         double localFreq = pow(2.0, I / 12.0) * f0;
         modFreq = localFreq;
-        phaseC = 0.0;
-        phaseM = 0.0;
+
         A = vel / 127.0;
+        
     }
     else if (cmd == 8) {  // Note Off
         bActive = false;
@@ -56,6 +56,9 @@ void InstrumentFM::command(long cmd, long note, long vel) {
         adsr.end();
     }
 }
+
+
+
 const std::vector<float>& InstrumentFM::synthesize() {
     // 1) If the envelope is fully done, just return silence forever
     double twoPi = 2.0 * 3.14159265358979323846;

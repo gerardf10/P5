@@ -40,6 +40,9 @@ void InstrumentDumb::command(long cmd, long note, long vel) {
     adsr.start();
     index = 0;
 	A = vel / 127.;
+      float f0 = 440*pow(2, (note - 69.)/12.);
+    phase = 2*3.14159*f0/SamplingRate;
+    phase_act = 0;
   }
   else if (cmd == 8) {	//'Key' released: sustain ends, release begins
     adsr.stop();
@@ -60,7 +63,12 @@ const vector<float> & InstrumentDumb::synthesize() {
     return x;
 
   for (unsigned int i=0; i<x.size(); ++i) {
-    x[i] = A * tbl[index++];
+      phase_act += phase;
+    while(phase_act > 2*3.14159){
+      phase_act -= 2*3.14159;
+    }
+    index = (int) phase_act/(2*3.14159)*tbl.size();
+    x[i] = A * tbl[index];
     if (index == tbl.size())
       index = 0;
   }

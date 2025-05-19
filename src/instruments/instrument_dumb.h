@@ -17,6 +17,7 @@ namespace upc {
     void command(long cmd, long note, long velocity=1); 
     const std::vector<float> & synthesize() override;
     bool is_active() const { return bActive; } 
+    float phase, phase_act;
   };
 }
 
