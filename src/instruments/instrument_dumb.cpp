@@ -63,7 +63,7 @@ const vector<float> & InstrumentDumb::synthesize() {
     return x;
 
   for (unsigned int i=0; i<x.size(); ++i) {
-      phase_act += phase;
+      phase_act += this->phase;
     while(phase_act > 2*3.14159){
       phase_act -= 2*3.14159;
     }

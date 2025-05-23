@@ -10,13 +10,13 @@ InstrumentFM::InstrumentFM(const std::string &params)
     // Parse parameters I, N1, N2 from params string
     size_t pos;
     if ((pos = params.find("I=")) != std::string::npos) {
-        I = std::stod(params.substr(pos + 2));
+        I = std::stod(params.substr(pos));
     }
     size_t p;
     if ((p = params.find("N1=")) != std::string::npos)
-        N1 = std::stoi(params.substr(p+3));
+        N1 = std::stoi(params.substr(p));
     if ((p = params.find("N2=")) != std::string::npos)
-        N2 = std::stoi(params.substr(p+3));
+        N2 = std::stoi(params.substr(p));
     // Create carrier sine table of N samples
     if (N1 < 1) N1 = 1;
     if (N2 < 1) N2 = 1;

@@ -1,0 +1,2 @@
+0 InstrumentSin I=1.0; ADSR_A=0.5; ADSR_D=0.10; ADSR_S=0.80; ADSR_R=0.10;
+1 InstrumentFM I=2.0; N1=1; N2=2; ADSR_A=0.010; ADSR_D=0.20; ADSR_S=0.70; ADSR_R=0.20;

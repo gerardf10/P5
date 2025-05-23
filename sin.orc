@@ -1,1 +1,0 @@
-1   InstrumentSin    ADSR_A=0.4; ADSR_D=0.2; ADSR_S=0.3; ADSR_R=0.2;
