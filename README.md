@@ -184,6 +184,19 @@ deberá venir expresado en semitonos.
 
 - Use el instrumento para generar un vibrato de *parámetros razonables* e incluya una gráfica en la que se
   vea, claramente, la correspondencia entre los valores `N1`, `N2` e `I` con la señal obtenida.
+
+	Observem el vibrato que se'ns demanava a la següent gràfica.
+
+	![Vibrato](/vibratofmgrafica.png)
+
+	Constatem com funciona "InstrumentFM" a partir de les 3 gràfiques.
+
+	![FM1](/pruebafm1.png)
+	![FM2](/pruebafm2.png)
+	![FM3](/pruebafm3.png)
+
+   	En relació la correspondència que se'ns demana, en uns termes que disten una mica dels acadèmics, seria la següent. La I vindria a ser com de potent és la modulació de tot, és a dir, "de la freqüència de la freqüència". D'altra banda, N1 i N2 ens indiquen la relació entre la freqüència central (f0) i la freqüència de mostreig (fm)
+  
 - Use el instrumento para generar un sonido tipo clarinete y otro tipo campana. Tome los parámetros del
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
   diatónicas (fichero `doremi.sco`) y ponga el resultado en los ficheros `work/doremi/clarinete.wav` y
@@ -191,7 +204,7 @@ deberá venir expresado en semitonos.
 
 	Hem afegit els fitxers en qüestió a la carpeta indicada.
   
-  * También puede colgar en el directorio work/doremi otras escalas usando sonidos *interesantes*. Por
+- También puede colgar en el directorio work/doremi otras escalas usando sonidos *interesantes*. Por
     ejemplo, violines, pianos, percusiones, espadas láser de la
 	[Guerra de las Galaxias](https://www.starwars.com/), etc.
 
