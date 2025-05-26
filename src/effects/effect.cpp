@@ -1,6 +1,7 @@
 #include <iostream>
 #include "tremolo.h"
 #include "vibrato.h"
+#include "clipping.h"
 
 /*
   For each new effect:
@@ -8,6 +9,8 @@
   - Add the call to the constructor in get_effect() (also in this file)
   - Add the source file to src/meson.build
 */
+
+using namespace std;
 
 using namespace std;
 
@@ -20,6 +23,9 @@ namespace upc {
     }
 	else if (name == "Vibrato") {
       pEffect = (Effect *) new Vibrato(parameters);
+    }
+  else if (name == "Clipping") {
+      pEffect = (Effect *) new Clipping(parameters);
     }
     return pEffect;
   }

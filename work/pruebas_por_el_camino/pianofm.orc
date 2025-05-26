@@ -1,0 +1,1 @@
+1 InstrumentFM I=6.0; N1=1; N2=2; ADSR_A=0.001; ADSR_D=0.2; ADSR_S=0.0; ADSR_R=1.0

@@ -8,15 +8,11 @@ InstrumentFM::InstrumentFM(const std::string &params)
 : adsr(SamplingRate, params),phaseC(0.0), phaseM(0.0), f0(0.0),
   modFreq(0.0), I(0.0), A(0.0),  N1(1), N2(1)  {
     // Parse parameters I, N1, N2 from params string
-    size_t pos;
-    if ((pos = params.find("I=")) != std::string::npos) {
-        I = std::stod(params.substr(pos));
-    }
-    size_t p;
-    if ((p = params.find("N1=")) != std::string::npos)
-        N1 = std::stoi(params.substr(p));
-    if ((p = params.find("N2=")) != std::string::npos)
-        N2 = std::stoi(params.substr(p));
+    KeyValue kv(params);
+    // Parse I, N1, N2 from parameter string
+    kv.to_float("I", I);   // Modulation index
+    kv.to_int("N1", N1);   // Carrier harmonic multiplier
+    kv.to_int("N2", N2);   // Modulator harmonic multiplier
     // Create carrier sine table of N samples
     if (N1 < 1) N1 = 1;
     if (N2 < 1) N2 = 1;
@@ -42,17 +38,15 @@ void InstrumentFM::command(long cmd, long note, long vel) {
         // Compute base frequency f0 and modulator frequency based on note and params
         f0 = pow(2.0, (note - 69) / 12.0) * 440.0;
         double localFreq = pow(2.0, I / 12.0) * f0;
-        modFreq = localFreq;
+        modFreq = localFreq *N2 / N1;
 
         A = vel / 127.0;
         
     }
     else if (cmd == 8) {  // Note Off
-        bActive = false;
         adsr.stop();
     }
     else if (cmd == 0) {  // All notes off
-        bActive = false;
         adsr.end();
     }
 }

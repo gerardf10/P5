@@ -2,6 +2,7 @@
 #include "instrument.h"
 #include <vector>
 #include <string>
+#include "keyvalue.h"
 #include "envelope_adsr.h"
 namespace upc {
 class InstrumentFM : public Instrument {
@@ -16,7 +17,7 @@ private:
     double phaseM;                // Modulator phase
     double f0;                    // Base frequency of the note
     double modFreq;               // Modulator frequency
-    double I;                     // Depth in semitones
+    float I;                     // Depth in semitones
     double A;                     // Amplitude (from velocity)
     int N1, N2;              // Number of samples for carrier and modulator
 };

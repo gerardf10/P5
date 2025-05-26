@@ -1,24 +1,29 @@
 #include "instrument_sin.h"
-#include <cmath>
-#include <algorithm>
+#include <math.h>
+#include <iostream>
 
 using namespace std;
 using namespace upc;
 
 InstrumentSin::InstrumentSin(const std::string &params)
-: adsr(SamplingRate, params),phaseIndex(0.0), A(0.0) {
+: adsr(SamplingRate, params) {
+   
+    x.resize(BSIZE);
+    bActive = false;
+    
     // Create sine table of N samples
-    const int N = 1024;
+    KeyValue kv(params); // Los parametros definidos en dumb.orc
+    int N;
+    if (!kv.to_int("N",N)) // Si el fichero no incluia el parametro N
+      N = 40;
     tbl.resize(N);
-    double phase = 0.0;
-    double stepTbl = 2.0 * 3.1415926 / N;
+    float phase = 0;
+    float stepTbl = 2 * 3.1415926 / (float) N;
     for (int i = 0; i < N; ++i) {
         tbl[i] = sin(phase);
         phase += stepTbl;
     }
-    // Prepare output buffer
-    x.resize(BSIZE);
-    bActive = false;
+    id = 0;
 }
 
 
@@ -28,17 +33,16 @@ void InstrumentSin::command(long cmd, long note, long vel) {
         bActive = true;
         adsr.start();
         // Compute step based on MIDI note
-        double freq = pow(2.0, (note - 69) / 12.0) * 440.0;
-        step = freq * tbl.size() / SamplingRate;
-
+        float freq = pow(2.0, (note - 69.0) / 12.0) * 440.0;
+        step = freq * 2.0 * 3.1415926 / SamplingRate;
         A = vel / 127.0;
+        phaseIndex = 0;
+        id = 0;
     }
     else if (cmd == 8) { // Note Off
         adsr.stop();
-        bActive = false;
     }
     else if (cmd == 0) { // All notes off
-        bActive = false;
         adsr.end();
     }
 }
@@ -51,19 +55,19 @@ const std::vector<float>& InstrumentSin::synthesize() {
       bActive = false;
       return x;
   }
+  else if (!bActive)
+    return x;
   // If voice not active yet, return previous buffer (silence or release tail)
   // but allow ADSR to process release phase
   
   // Fill buffer with interpolated sine samples
   for (unsigned int i = 0; i < x.size(); ++i) {
-      int idx = static_cast<int>(phaseIndex);
-      float frac = phaseIndex - idx;
-      int idx2 = (idx + 1) % tbl.size();
-      float sample = (1.0f - frac) * tbl[idx] + frac * tbl[idx2];
-      x[i] = A * sample;
       phaseIndex += step;
-      if (phaseIndex >= tbl.size())
-          phaseIndex -= tbl.size();
+      while (phaseIndex>2*3.1415926){
+        phaseIndex -= 2*3.1415926;
+      }
+      id = (int) phaseIndex / (2*3.1415926)*tbl.size();
+      x[i] = A * tbl[id];
   }
 
   // Apply ADSR envelope to entire buffer
