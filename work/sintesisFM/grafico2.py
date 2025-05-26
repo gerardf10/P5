@@ -31,7 +31,7 @@ class AudioPlotter(QWidget):
         rate = audio.frame_rate
 
         segments = [
-            (0, 5.00, "Señal completa con N1=5 N2=1 I=5"),
+            (0, 5.00, "Señal completa con N1=5 N2=1 I=3"),
             (0.15, 0.1725, "Tramo de 25 ms"),
             (0.3, 0.31, "Tramo de 10 ms")
         ]
