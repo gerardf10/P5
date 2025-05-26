@@ -195,7 +195,7 @@ deberá venir expresado en semitonos.
 	![FM2](/pruebafm2.png)
 	![FM3](/pruebafm3.png)
 
-   	En relació la correspondència que se'ns demana, en uns termes que disten una mica dels acadèmics, seria la següent. La I vindria a ser com de potent és la modulació de tot, és a dir, "de la freqüència de la freqüència". D'altra banda, N1 i N2 ens indiquen la relació entre la freqüència central (f0) i la freqüència de mostreig (fm)
+   	En relació la correspondència que se'ns demana, en uns termes que disten una mica dels acadèmics, seria la següent. La I vindria a ser com de potent és la modulació de tot, és a dir, "de la freqüència de la freqüència". D'altra banda, N1 i N2 ens indiquen la relació entre la freqüència central (f0) i la freqüència de mostreig (fm).
   
 - Use el instrumento para generar un sonido tipo clarinete y otro tipo campana. Tome los parámetros del
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
