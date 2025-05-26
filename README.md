@@ -169,7 +169,7 @@ const std::vector<float>& InstrumentSin::synthesize() {
   el efecto, e indique, a continuación, la orden necesaria para generar los ficheros de audio usando el
   programa `synth`.
 
-  Hem aplicat un clipping, és a dir, que quan superem un llindar el senyal es satura i no va més enllà. Això es veu clarament amb l'amplitud màxima del senyal (que podem localitzar al marge superior esquerre) si tolerem el 100% (clipping_out), el 80% (clipping80) o el 50% (clipping50). Observem que a mesura que anem avançant pels 3 casos anem perdent matisos del comportament del senyal en el seu tram superior.
+  Hem aplicat un clipping, és a dir, que quan superem un llindar el senyal es satura i no va més enllà. Això es veu clarament amb l'amplitud màxima del senyal (que podem localitzar al marge superior esquerre) si tolerem el 100% (clipping_out), el 80% (clipping80) o el 50% (clipping50). Efectivament, 6748 és la meitat de 13496. Observem que a mesura que anem avançant pels 3 casos anem perdent matisos del comportament del senyal en el seu tram superior.
 
   ![Clipping_out](/clipping_out.png)
   ![Clipping80](/clipping80.png)
@@ -188,9 +188,14 @@ deberá venir expresado en semitonos.
   sonido (N1, N2 e I) y de la envolvente ADSR del citado artículo. Con estos sonidos, genere sendas escalas
   diatónicas (fichero `doremi.sco`) y ponga el resultado en los ficheros `work/doremi/clarinete.wav` y
   `work/doremi/campana.work`.
+
+	Hem afegit els fitxers en qüestió a la carpeta indicada.
+  
   * También puede colgar en el directorio work/doremi otras escalas usando sonidos *interesantes*. Por
     ejemplo, violines, pianos, percusiones, espadas láser de la
 	[Guerra de las Galaxias](https://www.starwars.com/), etc.
+
+	També hem afegit a la carpeta indicada un piano acústic, un violí i un violoncel.
 
 ### Orquestación usando el programa synth.
 
@@ -216,7 +221,9 @@ de su agrado o composición. Se valorará la riqueza instrumental, su modelado y
 - Indique, a continuación, la orden necesaria para generar cada una de las señales usando los distintos
   ficheros.
 
-  Hem fet la prova amb la peça Fly Me To The Moon, de Frank Sinatra, descarregada en la versió de piano (per tant, a 2 veus: una per la mà esquerra i una altra per la mà dreta). L'odre és anàloga a l'anterior: "~/PAV/P5/work/music$ ~/PAV/bin/synth flymetothemoon.orc flymetothemoon.sco flymetothemoon.wav -g 0.1".
+  Hem fet la prova amb la peça Fly Me To The Moon, de Frank Sinatra, descarregada en la versió de piano (per tant, a 2 veus: una per la mà esquerra i una altra per la mà dreta). L'ordre és anàloga a l'anterior: "~/PAV/P5/work/music$ ~/PAV/bin/synth flymetothemoon.orc flymetothemoon.sco flymetothemoon.wav -g 0.1".
+
+  Finalment, convé destacar Laplace's Angel, de Will Wood, que presenta 37 pistes i combina diferents aspectes que s'han anat tractant al llarg de la pràctica. Novament, l'ordre és anàloga a les anteriors: "~/PAV/P5/work/music$ ~/PAV/bin/synth laplacesangels.orc laplacesangels.sco laplacesangels.wav -g 0.1".
 
 
 > NOTA:
