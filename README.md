@@ -229,14 +229,16 @@ Use el programa `synth` para generar canciones a partir de su partitura MIDI. Co
 También puede orquestar otros temas más complejos, como la banda sonora de *Hawaii5-0* o el villacinco de
 John Lennon *Happy Xmas (War Is Over)* (fichero `The_Christmas_Song_Lennon.sco`), o cualquier otra canción
 de su agrado o composición. Se valorará la riqueza instrumental, su modelado y el resultado final.
-- Coloque los ficheros generados, junto a sus ficheros `score`, `instruments` y `efffects`, en el directorio
+- Coloque los ficheros generados, junto a sus ficheros `score`, `instruments` y `effects`, en el directorio
   `work/music`.
 - Indique, a continuación, la orden necesaria para generar cada una de las señales usando los distintos
   ficheros.
 
+  Com que l'enunciat ens dona llibertat per escollir peces del nostre gust, cada membre de la paralla n'ha escollit una, que són les que es detallen a continuació.
+
   Hem fet la prova amb la peça Fly Me To The Moon, de Frank Sinatra, descarregada en la versió de piano (per tant, a 2 veus: una per la mà esquerra i una altra per la mà dreta). L'ordre és anàloga a l'anterior: "~/PAV/P5/work/music$ ~/PAV/bin/synth flymetothemoon.orc flymetothemoon.sco flymetothemoon.wav -g 0.1".
 
-  Finalment, convé destacar Laplace's Angel, de Will Wood, que presenta 37 pistes i combina diferents aspectes que s'han anat tractant al llarg de la pràctica. Novament, l'ordre és anàloga a les anteriors: "~/PAV/P5/work/music$ ~/PAV/bin/synth laplacesangels.orc laplacesangels.sco laplacesangels.wav -g 0.1".
+  Finalment, convé destacar Laplace's Angel, de Will Wood, que presenta 37 pistes i combina diferents aspectes que s'han anat tractant al llarg de la pràctica. Novament, l'ordre és anàloga a les anteriors: "~/PAV/P5/work/music$ ~/PAV/bin/synth -b 150 laplacesangels.orc laplacesangels.sco laplacesangels.wav -g 0.1".
 
 
 > NOTA:
