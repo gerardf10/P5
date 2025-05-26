@@ -185,15 +185,15 @@ deberá venir expresado en semitonos.
 - Use el instrumento para generar un vibrato de *parámetros razonables* e incluya una gráfica en la que se
   vea, claramente, la correspondencia entre los valores `N1`, `N2` e `I` con la señal obtenida.
 
-	Observem el vibrato que se'ns demanava a la següent gràfica.
-
-	![Vibrato](/vibratofmgrafica.png)
-
-	Constatem com funciona "InstrumentFM" a partir de les 3 gràfiques.
+	Constatem com funciona "InstrumentFM" a partir de les 3 gràfiques següents.
 
 	![FM1](/pruebafm1.png)
 	![FM2](/pruebafm2.png)
 	![FM3](/pruebafm3.png)
+
+	Observem el vibrato que se'ns demanava a la següent gràfica.
+
+	![Vibrato](/vibratofmgrafica.png)
 
    	En relació la correspondència que se'ns demana, en uns termes que disten una mica dels acadèmics, seria la següent. La I vindria a ser com de potent és la modulació de tot, és a dir, "de la freqüència de la freqüència". D'altra banda, N1 i N2 ens indiquen la relació entre la freqüència central (f0) i la freqüència de mostreig (fm).
   
@@ -208,7 +208,7 @@ deberá venir expresado en semitonos.
     ejemplo, violines, pianos, percusiones, espadas láser de la
 	[Guerra de las Galaxias](https://www.starwars.com/), etc.
 
-	També hem afegit a la carpeta indicada un piano acústic, un violí i un violoncel.
+	També hem afegit a la carpeta indicada un piano acústic, un violí i un violoncel, ja que malgrat ser fans de Star Wars els consideràvem més realistes.
 
 ### Orquestación usando el programa synth.
 
