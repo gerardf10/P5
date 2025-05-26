@@ -38,7 +38,7 @@ void InstrumentFM::command(long cmd, long note, long vel) {
         // Compute base frequency f0 and modulator frequency based on note and params
         f0 = pow(2.0, (note - 69) / 12.0) * 440.0;
         double localFreq = pow(2.0, I / 12.0) * f0;
-        modFreq = localFreq *N2 / N1;
+        modFreq = localFreq *N1 / N2;
 
         A = vel / 127.0;
         
