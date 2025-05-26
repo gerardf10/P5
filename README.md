@@ -234,7 +234,7 @@ de su agrado o composición. Se valorará la riqueza instrumental, su modelado y
 - Indique, a continuación, la orden necesaria para generar cada una de las señales usando los distintos
   ficheros.
 
-  Com que l'enunciat ens dona llibertat per escollir peces del nostre gust, cada membre de la paralla n'ha escollit una, que són les que es detallen a continuació.
+  Com que l'enunciat ens dona llibertat per escollir peces del nostre gust, tenint en compte la riquesa instrumental, cada membre de la parella n'ha escollit una, que són les que es detallen a continuació.
 
   Hem fet la prova amb la peça Fly Me To The Moon, de Frank Sinatra, descarregada en la versió de piano (per tant, a 2 veus: una per la mà esquerra i una altra per la mà dreta). L'ordre és anàloga a l'anterior: "~/PAV/P5/work/music$ ~/PAV/bin/synth flymetothemoon.orc flymetothemoon.sco flymetothemoon.wav -g 0.1".
 
