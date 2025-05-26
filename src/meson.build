@@ -15,6 +15,7 @@ sources = [
 	'instruments/instrument_sin.cpp',
     'instruments/instrument_sampler.cpp',
     'instruments/instrument_fm.cpp',
+	'instruments/instrument_fm_vibrato.cpp',
 
 ]
 

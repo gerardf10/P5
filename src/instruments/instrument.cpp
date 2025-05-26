@@ -2,6 +2,7 @@
 #include "instrument_dumb.h"
 #include "instrument_sin.h"
 #include "instrument_fm.h"
+#include "instrument_fm_vibrato.h"
 #include "instrument_sampler.h"
 
 /*
@@ -26,6 +27,9 @@ namespace upc {
     }
     else if (name == "InstrumentFM") {
       pInst = (Instrument *) new InstrumentFM(parameters);
+    }
+    else if (name == "InstrumentFMVibrato") {
+      pInst = (Instrument *) new InstrumentVibrato(parameters);
     }
     else if (name == "InstrumentSampler") {
       pInst = (Instrument *) new InstrumentSampler(parameters);

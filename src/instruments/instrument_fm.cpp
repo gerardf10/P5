@@ -1,91 +1,68 @@
 #include "instrument_fm.h"
 #include <cmath>
-
 using namespace std;
 using namespace upc;
 
 InstrumentFM::InstrumentFM(const std::string &params)
-: adsr(SamplingRate, params),phaseC(0.0), phaseM(0.0), f0(0.0),
-  modFreq(0.0), I(0.0), A(0.0),  N1(1), N2(1)  {
-    // Parse parameters I, N1, N2 from params string
+: adsr(SamplingRate, params), phaseC(0), phaseM(0), f0(0), modFreq(0), I(0), A(0), N1(1), N2(1) {
     KeyValue kv(params);
-    // Parse I, N1, N2 from parameter string
-    kv.to_float("I", I);   // Modulation index
-    kv.to_int("N1", N1);   // Carrier harmonic multiplier
-    kv.to_int("N2", N2);   // Modulator harmonic multiplier
-    // Create carrier sine table of N samples
+    kv.to_float("I", I);
+    kv.to_int("N1", N1);
+    kv.to_int("N2", N2);
     if (N1 < 1) N1 = 1;
     if (N2 < 1) N2 = 1;
-    // ... (build operator sine table code, omitted for brevity)
-    // Initialize output buffer
-    const int N = 1024;
-    tbl.resize(N);
+    // Build one-cycle sine table
+    const int TABLE_SIZE = 1024;
+    tbl.resize(TABLE_SIZE);
     double phase = 0.0;
-    double stepTbl = 2.0 * 3.1415926 / N;
-    for (int i = 0; i < N; ++i) {
-        tbl[i] = std::sin(phase);
-        phase += stepTbl;
+    double step = 2.0 * 3.14159 / TABLE_SIZE;
+    for (int i = 0; i < TABLE_SIZE; ++i) {
+        tbl[i] = sin(phase);
+        phase += step;
     }
     x.resize(BSIZE);
     bActive = false;
 }
 
-
 void InstrumentFM::command(long cmd, long note, long vel) {
-    if (cmd == 9) {       // Note On
+    if (cmd == 9) {
         bActive = true;
         adsr.start();
-        // Compute base frequency f0 and modulator frequency based on note and params
         f0 = pow(2.0, (note - 69) / 12.0) * 440.0;
+        // Per original formula: apply I transposition before ratio
         double localFreq = pow(2.0, I / 12.0) * f0;
-        modFreq = localFreq *N1 / N2;
+        modFreq = localFreq * (double)N1 / (double)N2;
+        A = vel / 127.0f;
 
-        A = vel / 127.0;
-        
-    }
-    else if (cmd == 8) {  // Note Off
+    } else if (cmd == 8) {
         adsr.stop();
-    }
-    else if (cmd == 0) {  // All notes off
+    } else if (cmd == 0) {
         adsr.end();
     }
 }
 
-
-
-const std::vector<float>& InstrumentFM::synthesize() {
-    // 1) If the envelope is fully done, just return silence forever
-    double twoPi = 2.0 * 3.14159265358979323846;
+const vector<float>& InstrumentFM::synthesize() {
+    const double twoPi = 2.0 * 3.14159;
     if (!adsr.active()) {
         x.assign(x.size(), 0.0f);
+        bActive = false;
         return x;
     }
-
-    // 2) Always regenerate the FM voice, even during release
-
-    double stepC = twoPi * f0      / SamplingRate;
+    double stepC = twoPi * f0 / SamplingRate;
     double stepM = twoPi * modFreq / SamplingRate;
 
     for (size_t i = 0; i < x.size(); ++i) {
-        // modulator
-        double modS = std::sin(phaseM);
+        // Modulator
+        double modS = sin(phaseM);
         phaseM += stepM;
         if (phaseM >= twoPi) phaseM -= twoPi;
-
-        // carrier with FM
+        // Carrier with FM depth I
         double instP = phaseC + I * modS;
-        float carS = std::sin(instP);
-
-        // raw amplitude × velocity
+        float carS = sin(instP);
         x[i] = A * carS;
-
-        // advance base phase
         phaseC += stepC;
         if (phaseC >= twoPi) phaseC -= twoPi;
     }
-
-    // 3) Apply the ADSR to *this* freshly‑generated buffer
     adsr(x);
-
     return x;
 }
